@@ -397,12 +397,14 @@ public class SWTModelMapper {
 			StyleRange[] sr = st.getStyleRanges();
 			for (StyleRange styleRange : sr) {
 				text.getStyleRanges().add(makeStyleRange(styleRange));
-				String currText = PlayerTextUtils.unifyMultilines(st.getTextRange(styleRange.start,
-						styleRange.length));
-				text.getStyles().add(
-						addStartEnd(st, makeTextStyle(styleRange, currText)));
 			}
 
+			List<StyleRangeEntry> styleRanges = PlayerTextUtils.captureStyleRanges(st);
+			for (StyleRangeEntry styleRange: styleRanges) {
+				String currText = PlayerTextUtils.unifyMultilines(st.getTextRange(styleRange.getStart(), styleRange.getLength()));
+				styleRange.setText(currText);
+				text.getStyles().add(styleRange);
+			}
 			setStyleAtOffset(text, st, caretOffset, sr);
 		}
 

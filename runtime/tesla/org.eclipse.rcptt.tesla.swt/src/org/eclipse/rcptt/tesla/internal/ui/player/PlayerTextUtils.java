@@ -371,6 +371,7 @@ public class PlayerTextUtils {
 			result.add(rangeEntry);
 			totalDelta += delta;
 		}
+		squashRanges(result);
 		return result;
 	}
 

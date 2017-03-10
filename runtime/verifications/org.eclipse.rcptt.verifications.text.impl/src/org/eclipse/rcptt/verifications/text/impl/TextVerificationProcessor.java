@@ -65,7 +65,6 @@ public class TextVerificationProcessor extends VerificationProcessor {
 				}
 
 				List<StyleRangeEntry> expectedStyleEntries = textVerification.getStyles();
-				PlayerTextUtils.squashRanges(expectedStyleEntries);
 				
 				if (expectedStyleEntries.size() > 0 && !textVerification.isIgnoreStyling()) {
 					if (!(widget instanceof StyledText))
@@ -74,7 +73,6 @@ public class TextVerificationProcessor extends VerificationProcessor {
 					else {
 						StyledText styledText = (StyledText) widget;
 						List<StyleRangeEntry> actualStyleEntries = PlayerTextUtils.captureStyleRanges(styledText);
-						PlayerTextUtils.squashRanges(actualStyleEntries);
 
 						boolean failed = false;
 						for (int i = 0; i < Math.min(expectedStyleEntries.size(), actualStyleEntries.size()); ++i) {
@@ -131,7 +129,6 @@ public class TextVerificationProcessor extends VerificationProcessor {
 					if (unfold(styledText))
 						result.setText(PlayerTextUtils.getTextForVerification(swtuiElement));
 					List<StyleRangeEntry> captured = PlayerTextUtils.captureStyleRanges(styledText);
-					PlayerTextUtils.squashRanges(captured);
 					result.getStyles().addAll(captured);
 					result.setIgnoreStyling(result.getStyles().size() > 0 ? p.isIgnoreStyling() : true);
 				} else
